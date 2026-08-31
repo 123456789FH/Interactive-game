@@ -69,3 +69,128 @@ body.quiz-mode .check{display:none}
 @media print{
   body{background:#fff;padding:0}.app{width:100%}.stage{background:none;aspect-ratio:auto;overflow:visible;box-shadow:none}.stage>*:not(.certificate-screen){display:none!important}.certificate-screen{position:static;display:block!important;background:#fff;padding:0}.certificate{width:100%;max-width:none;min-height:95vh;box-shadow:none;border:10px double #9b6d1f;display:flex;flex-direction:column;justify-content:center}.no-print{display:none!important}.help{display:none!important}
 }
+
+/* ===== V2.1: ضبط بصري دقيق فوق الواجهة الأصلية ===== */
+.screen-shade{background:rgba(3,43,64,.025)}
+
+/* نستخدم عناصر الرسم الأصلية قدر الإمكان، ونغطي فقط القيم المتغيرة. */
+.score-box{
+  left:5.55%;top:1.78%;width:6.45%;height:6.15%;
+  border:0;box-shadow:none;border-radius:9px;background:#0e6fa9;
+  gap:0;font-family:Arial,"Segoe UI",sans-serif;font-size:clamp(17px,2.45vw,40px)
+}
+.score-star{display:none}
+
+.level-badge{
+  left:29.2%;top:1.55%;width:6.25%;height:7.2%;
+  border:0;box-shadow:none;background:transparent;color:#fff
+}
+.level-badge small{display:none}
+.level-badge strong{
+  position:absolute;left:22%;right:22%;bottom:8%;height:46%;
+  display:grid;place-items:center;border-radius:6px;background:#573092;
+  font-family:Arial,"Segoe UI",sans-serif;font-size:clamp(13px,1.85vw,30px)
+}
+
+/* لوحة التعليمات: نترك الإطار الخشبي الأصلي ظاهرًا. */
+.hint-board{
+  left:3.65%;top:13.45%;width:16.55%;height:28.25%;
+  border:0;box-shadow:none;border-radius:3px;
+  background:linear-gradient(180deg,rgba(255,246,218,.985),rgba(248,227,184,.985));
+  padding:2.4% 1.15% 1.7%
+}
+.hint-board h2{font-size:clamp(15px,2.02vw,33px);margin:0 0 .35em}
+.hint-board p{font-size:clamp(11px,1.35vw,22px);line-height:1.55}
+
+/* بطاقة العدد المطلوب: نبقي اللوحة الأصلية ونستبدل الرقم فقط. */
+.target-card{
+  left:39.1%;top:26.25%;width:21.25%;height:13.8%;
+  border:0;box-shadow:none;background:transparent;padding:0;pointer-events:none
+}
+.target-card span{display:none}
+.target-card strong{
+  position:absolute;left:12.8%;top:34%;width:74.4%;height:55%;
+  display:grid;place-items:center;background:#f8ecd2;border-radius:8px;
+  color:#123e70;font-family:Arial,"Segoe UI",sans-serif;
+  font-size:clamp(31px,5.15vw,82px);line-height:1;font-weight:800;letter-spacing:.025em
+}
+
+/* لوحة العدد المبني: نحافظ على اللوحة الخضراء الأصلية ونحدث خانة الرقم فقط. */
+.built-card{
+  left:81.2%;top:49.75%;width:14.4%;height:14.4%;
+  border:0;box-shadow:none;background:transparent;color:transparent;text-shadow:none;pointer-events:none
+}
+.built-card small{display:none}
+.built-card strong{
+  position:absolute;left:10%;top:39%;width:80%;height:39%;margin:0;
+  display:grid;place-items:center;border:0;border-radius:7px;background:#f8ecd3;
+  color:#27231d;font-family:Arial,"Segoe UI",sans-serif;font-size:clamp(18px,2.8vw,46px);font-weight:800
+}
+
+/* عدادات المنازل في الخانات البيضاء الموجودة أصلًا فوق الأبواب. */
+.count-badge{
+  top:43.05%;width:4.65%;height:4.65%;border:0;box-shadow:none;border-radius:7px;
+  background:#f8ecd1;color:#2b271e;font-family:Arial,"Segoe UI",sans-serif;
+  font-size:clamp(13px,1.72vw,28px);font-weight:800
+}
+#countThousands{left:28.55%}
+#countHundreds{left:41.00%}
+#countTens{left:53.86%}
+#countOnes{left:66.48%}
+
+/* توسيع مناطق الإسقاط لتشمل الباب والمنصة المضيئة تحته. */
+.door{top:37.4%;height:30.4%;width:11.35%;border-radius:18px}
+#doorThousands{left:25.9%}
+#doorHundreds{left:38.35%}
+#doorTens{left:51.15%}
+#doorOnes{left:63.85%}
+.door.portal-pop{animation:portalPop .42s ease}
+@keyframes portalPop{50%{box-shadow:inset 0 0 0 7px rgba(255,255,255,.9),0 0 34px rgba(255,238,106,.95);transform:scale(1.025)}}
+
+/* أزرار الصورة الأصلية هي التي تظهر؛ هذه الطبقة للنقر فقط. */
+.action{background:transparent!important;color:transparent!important;text-shadow:none!important;box-shadow:none!important;border:0!important}
+.action:hover{box-shadow:inset 0 0 0 4px rgba(255,255,255,.32)!important}
+.action:active{transform:scale(.985)}
+.reset{left:80.95%;top:67.2%;width:17.35%;height:9.1%}
+.check{left:80.9%;top:77.2%;width:17.4%;height:14.1%}
+
+/* الصندوق مرسوم ومفتوح في الخلفية؛ نضيف وهجًا وشرارات فقط بدل المستطيل البني. */
+.chest-effect{left:71.7%;top:5.0%;width:17.0%;height:26.0%;z-index:17;overflow:visible}
+.chest-lid{display:none!important}
+.chest-glow{
+  inset:5% -5% -2%;background:radial-gradient(circle at 50% 54%,rgba(255,247,143,.94),rgba(255,202,43,.38) 35%,transparent 70%);
+  filter:blur(3px);mix-blend-mode:screen
+}
+.chest-effect::before,.chest-effect::after{
+  position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) scale(.45);
+  opacity:0;pointer-events:none;color:#fff3a1;font-size:clamp(18px,2.3vw,38px);font-weight:900;
+  text-shadow:-42px -12px 0 #ffd34d,40px -28px 0 #fff4a4,-58px 32px 0 #fff0aa,55px 28px 0 #ffc52e
+}
+.chest-effect::before{content:"✦"}
+.chest-effect::after{content:"✦";top:58%;font-size:clamp(13px,1.65vw,27px)}
+.chest-effect.open{animation:chestPulse .75s ease 2}
+.chest-effect.open::before{animation:sparkBurst .9s ease-out 2}
+.chest-effect.open::after{animation:sparkBurst2 .9s .12s ease-out 2}
+@keyframes chestPulse{50%{transform:scale(1.045)}}
+@keyframes sparkBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}45%{opacity:1}100%{opacity:0;transform:translate(-50%,-95%) scale(1.25) rotate(25deg)}}
+@keyframes sparkBurst2{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}45%{opacity:1}100%{opacity:0;transform:translate(-50%,-120%) scale(1.05) rotate(-25deg)}}
+
+/* نموذج السحب يوضح قيمة البطاقة بدل مربع عام. */
+.drag-ghost{width:82px;height:82px;border-radius:20px;background:rgba(255,248,220,.98);border:4px solid #efb628}
+.drag-ghost span{width:auto;height:auto;background:none;box-shadow:none;border-radius:0;color:#174e7c;font-weight:900;font-family:Arial,"Segoe UI",sans-serif;font-size:22px}
+
+/* حركة مصغرة للبطاقة عند انتقالها إلى المنزلة الصحيحة. */
+.fly-model{
+  position:fixed;z-index:10000;display:grid;place-items:center;pointer-events:none;
+  width:62px;height:62px;border-radius:16px;background:linear-gradient(#fff7d8,#f2c24f);
+  border:4px solid #fff5a8;color:#15436c;font:900 18px Arial,"Segoe UI",sans-serif;
+  box-shadow:0 10px 24px rgba(0,0,0,.28);transition:transform .42s cubic-bezier(.2,.75,.2,1),opacity .42s ease
+}
+
+/* الأرقام في الواجهة دائمًا باتجاه ثابت وواضح. */
+#scoreDisplay,#levelDisplay,#targetDisplay,#builtDisplay,.count-badge,.progress span,.reward-score strong,.cert-stats strong{direction:ltr;unicode-bidi:isolate}
+
+@media(max-width:780px){
+  .hint-board{padding:1.7% .9%}
+  .target-card strong{top:35%;height:54%}
+}

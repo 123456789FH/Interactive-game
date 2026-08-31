@@ -235,17 +235,41 @@
     els.certificateScreen.hidden=false;burstConfetti();tone(1000,.14);setTimeout(()=>tone(1250,.16),130);
   }
 
+  function animateModelToDoor(place){
+    const source=document.querySelector('[data-model="'+place+'"]');
+    const door=document.querySelector('[data-place="'+place+'"].door');
+    if(!source||!door)return;
+    const a=source.getBoundingClientRect(),b=door.getBoundingClientRect();
+    const fly=document.createElement('div');
+    fly.className='fly-model';
+    fly.textContent=ar(places[place]);
+    const x=a.left+a.width/2-31,y=a.top+a.height/2-31;
+    const dx=(b.left+b.width/2-31)-x,dy=(b.top+b.height*.72-31)-y;
+    fly.style.left=x+'px';fly.style.top=y+'px';
+    document.body.appendChild(fly);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      fly.style.transform='translate('+dx+'px,'+dy+'px) scale(.56)';
+      fly.style.opacity='.18';
+    }));
+    setTimeout(()=>fly.remove(),470);
+  }
+
   function addModel(place){
     if(state.level!==1||state.solved)return;
     if(state.counts[place]>=9){tone(200,.1);toast('وصلت إلى ٩ نماذج في منزلة '+labels[place]+'.');return;}
-    state.counts[place]++;renderCore();tone(650,.06);flashDoor(place,true);
+    state.counts[place]++;animateModelToDoor(place);renderCore();tone(650,.06);flashDoor(place,true);
   }
   function removeModel(place){
     if(state.level!==1||state.solved)return;
     if(state.counts[place]<=0){toast('لا يوجد نموذج لإزالته من '+labels[place]+'.');return;}
     state.counts[place]--;countEls[place].classList.remove('decrease');void countEls[place].offsetWidth;countEls[place].classList.add('decrease');renderCore();tone(400,.05);
   }
-  function flashDoor(place,ok){const el=document.querySelector('#door'+place[0].toUpperCase()+place.slice(1));const cls=ok?'correct-flash':'wrong-flash';el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls)}
+  function flashDoor(place,ok){
+    const el=document.querySelector('#door'+place[0].toUpperCase()+place.slice(1));
+    const cls=ok?'correct-flash':'wrong-flash';
+    el.classList.remove(cls,'portal-pop');void el.offsetWidth;el.classList.add(cls);
+    if(ok){el.classList.add('portal-pop');setTimeout(()=>el.classList.remove('portal-pop'),460)}
+  }
   function tryPlace(model,door){
     if(model===door){addModel(door);state.selected=null;renderCore();toast('أحسنت، هذا النموذج في منزلة '+labels[door]+'.');return true;}
     flashDoor(door,false);registerWrong();tone(190,.11);toast('راجع قيمة النموذج والمنزلة المناسبة.');return false;
@@ -290,7 +314,9 @@
     let drag=null;
     el.addEventListener('pointerdown',ev=>{
       if(state.level!==1||state.solved)return;
-      drag={id:ev.pointerId,x:ev.clientX,y:ev.clientY,moved:false,model:el.dataset.model};el.setPointerCapture?.(ev.pointerId);
+      drag={id:ev.pointerId,x:ev.clientX,y:ev.clientY,moved:false,model:el.dataset.model};
+      const ghostValue=els.ghost.querySelector('span');if(ghostValue)ghostValue.textContent=ar(places[el.dataset.model]);
+      el.setPointerCapture?.(ev.pointerId);
     });
     el.addEventListener('pointermove',ev=>{
       if(!drag||drag.id!==ev.pointerId)return;
