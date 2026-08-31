@@ -4,7 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#157bbf">
-  <meta name="description" content="مغامرة كنز القيمة المنزلية - لعبة تفاعلية للصف الثالث الابتدائي - V2.4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="كنز القيمة">
+  <meta name="description" content="مغامرة كنز القيمة المنزلية - لعبة تفاعلية للصف الثالث الابتدائي - V2.5 متجاوبة مع الجوال">
   <title>مغامرة كنز القيمة المنزلية</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="assets/icon-192.png">
@@ -123,6 +126,20 @@
   </section>
 
 </main>
+  <!-- إرشاد تلقائي للجوال عند فتح اللعبة عموديًا -->
+  <section class="orientation-gate" id="orientationGate" aria-label="توجيه وضع الجوال">
+    <div class="orientation-card">
+      <div class="rotate-device" aria-hidden="true">
+        <span class="phone-shape"></span>
+        <span class="rotate-arrow">↻</span>
+      </div>
+      <p class="orientation-kicker">مغامرة كنز القيمة المنزلية</p>
+      <h2>أدر الجوال للوضع الأفقي</h2>
+      <p>ستظهر اللعبة كاملة وبحجم مناسب تلقائيًا عند تدوير الجهاز.</p>
+      <div class="orientation-stars" aria-hidden="true">★ ★ ★</div>
+      <small>أ/ فاطمة هزازي</small>
+    </div>
+  </section>
 
 <div id="dragGhost" class="drag-ghost" aria-hidden="true"><span></span></div>
 <script src="game.js"></script>

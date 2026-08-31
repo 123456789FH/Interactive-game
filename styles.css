@@ -419,3 +419,86 @@ body{padding:0}
   .count-badge{font-size:clamp(14px,2.3vw,24px)}
   .model::after{font-size:clamp(12px,2vw,22px)}
 }
+
+/* ===== V2.5: إصلاح الجوال والآيباد ===== */
+/* في الوضع الأفقي نملأ أكبر مساحة ممكنة من الشاشة من دون قص أو شريط فارغ طويل. */
+@media (max-width:1100px) and (orientation:landscape){
+  html,body{width:100%;min-height:100%;background:#168fd4}
+  body{
+    min-height:100dvh;
+    padding:max(env(safe-area-inset-top),0px) max(env(safe-area-inset-right),0px) max(env(safe-area-inset-bottom),0px) max(env(safe-area-inset-left),0px);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .app{
+    width:min(100vw,176.48dvh);
+    max-width:none;
+    margin:auto;
+    flex:0 0 auto;
+  }
+  .stage{width:100%;border-radius:0;box-shadow:none}
+
+  /* شاشة البداية والنجاح تظل داخل المشهد، لكن يمكن تمريرها إذا كانت نافذة المتصفح قصيرة. */
+  .modal-screen{overflow:auto;overscroll-behavior:contain;padding:1.6%}
+  .start-card,.reward-card{width:min(86%,480px);padding:10px 22px;border-radius:18px}
+  .treasure-mark{width:48px;height:48px;border-width:3px;font-size:28px}
+  .eyebrow{margin:4px 0 0;font-size:12px}
+  .start-card h1{font-size:clamp(25px,5.2dvh,38px);margin:.08em 0;line-height:1.03}
+  .start-copy{font-size:clamp(11px,2.7dvh,15px);line-height:1.4;margin:6px 0}
+  .name-label{margin:5px 0 3px;font-size:12px}
+  .name-input{min-height:38px;border-radius:10px;font-size:16px;padding:0 12px}
+  .big-start{min-height:42px;margin-top:7px;border-radius:11px;font-size:16px}
+  .sound-note{font-size:10px;margin:6px 0 3px}
+  .signature{font-size:11px;padding-top:5px}
+  .reward-icon{font-size:42px}
+  .reward-card h2{font-size:clamp(26px,7dvh,42px);margin:.05em 0}
+  .reward-card p{font-size:13px;margin:5px 0}
+  .reward-stars{font-size:clamp(30px,9dvh,52px)}
+}
+
+/* شاشة تدوير نظيفة للجوال والآيباد عند الفتح عموديًا. */
+.orientation-gate{display:none}
+@media (max-width:900px) and (orientation:portrait){
+  html,body{margin:0;width:100%;min-height:100%;background:#168fd4;overflow:hidden}
+  body{padding:0}
+  .orientation-gate{
+    position:fixed;z-index:20000;inset:0;
+    display:grid;place-items:center;
+    overflow:auto;overscroll-behavior:contain;
+    padding:max(24px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));
+    background:
+      linear-gradient(rgba(7,80,126,.40),rgba(7,80,126,.68)),
+      url('assets/treasure-bg.png') center/cover no-repeat;
+  }
+  .orientation-card{
+    width:min(92vw,430px);
+    background:linear-gradient(180deg,#fff8e7,#f4dfb6);
+    border:3px solid #9b672d;
+    box-shadow:inset 0 0 0 3px rgba(255,255,255,.55),0 16px 42px rgba(0,37,62,.30);
+    border-radius:26px;
+    color:#4a2d0d;
+    text-align:center;
+    padding:24px 22px 20px;
+  }
+  .rotate-device{position:relative;width:128px;height:92px;margin:0 auto 8px}
+  .phone-shape{
+    position:absolute;left:34px;top:8px;width:48px;height:82px;
+    border:6px solid #176da5;border-radius:12px;background:#eaf8ff;
+    transform:rotate(-18deg);box-shadow:0 5px 11px rgba(0,0,0,.15)
+  }
+  .phone-shape::after{content:"";position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:12px;height:4px;border-radius:10px;background:#176da5}
+  .rotate-arrow{position:absolute;right:5px;top:16px;color:#e9a514;font-size:58px;font-weight:900;line-height:1;text-shadow:0 2px 0 #fff}
+  .orientation-kicker{margin:3px 0;color:#7b541e;font-size:14px;font-weight:900}
+  .orientation-card h2{margin:5px 0 8px;color:#145889;font-size:clamp(26px,8vw,36px);line-height:1.25}
+  .orientation-card>p:not(.orientation-kicker){margin:0 auto;max-width:330px;font-size:16px;font-weight:700;line-height:1.75}
+  .orientation-stars{direction:ltr;color:#f2b51b;font-size:28px;letter-spacing:.14em;margin:12px 0 4px;text-shadow:0 2px 0 #8a5a05}
+  .orientation-card small{display:block;border-top:1px solid rgba(122,78,25,.22);padding-top:9px;font-weight:900}
+}
+
+/* للشاشات الطويلة الصغيرة جدًا: البطاقة لا تتجاوز الشاشة. */
+@media (max-width:430px) and (orientation:portrait){
+  .orientation-card{padding:18px 16px 15px;border-radius:22px}
+  .rotate-device{transform:scale(.88);margin-top:-4px;margin-bottom:0}
+  .orientation-card h2{font-size:28px}
+  .orientation-card>p:not(.orientation-kicker){font-size:14px;line-height:1.65}
+}
