@@ -232,3 +232,63 @@ body{padding:0}
   body{padding:0}
   .stage{border-radius:0}
 }
+
+
+/* ===== V2.3: دمج القيم الديناميكية داخل الرسم الأصلي بلا مربعات إضافية ===== */
+/* الأرقام الديناميكية تستخدم خطًا عربيًا واضحًا على ويندوز والجوال. */
+.numeric-ui,
+#scoreDisplay,#levelDisplay,#targetDisplay,#builtDisplay,
+.count-badge,.progress span,.reward-score strong,.cert-stats strong{
+  font-family:Tahoma,"Segoe UI","Geeza Pro","Noto Sans Arabic",sans-serif!important;
+  font-weight:800;
+  direction:ltr;
+  unicode-bidi:isolate;
+  font-variant-numeric:lining-nums tabular-nums;
+}
+
+/* النقاط: إلغاء المستطيل الأزرق الداخلي تمامًا، والإبقاء على رقم فقط داخل لوحة الصورة الأصلية. */
+.score-box{
+  left:6.25%;top:2.02%;width:5.55%;height:5.55%;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  border-radius:0!important;padding:0!important;display:grid;place-items:center;
+  color:#fff;text-shadow:0 2px 2px rgba(0,0,0,.36);overflow:visible;
+}
+.score-box::before{
+  content:"";position:absolute;left:42%;top:18%;width:21%;height:64%;
+  border-radius:50%;background:#0e6aa5;z-index:0;pointer-events:none;
+}
+#scoreDisplay{position:relative;z-index:1;width:100%;text-align:center;font-size:clamp(18px,2.45vw,40px)}
+.score-star{display:none!important}
+
+/* عدادات الأبواب: لا نرسم مستطيلاً فوق اللوحة البيضاء؛ نمسح الصفر الثابت فقط في المركز. */
+.count-badge{
+  top:43.05%;width:4.55%;height:4.45%;
+  border:0!important;box-shadow:none!important;border-radius:0!important;
+  background:radial-gradient(ellipse at center,#f7ead0 0 30%,rgba(247,234,208,.98) 34%,rgba(247,234,208,0) 39%)!important;
+  color:#2a251d;font-size:clamp(15px,1.78vw,29px);font-weight:800;
+}
+#countThousands{left:28.45%}
+#countHundreds{left:40.95%}
+#countTens{left:53.70%}
+#countOnes{left:66.30%}
+.count-badge:hover{background:radial-gradient(ellipse at center,#fff2d7 0 31%,rgba(255,242,215,.98) 35%,rgba(255,242,215,0) 40%)!important}
+
+/* العدد الذي بناه الطالب: استخدام اللوحة الخضراء والورقة الموجودة في الصورة نفسها. */
+.built-card{
+  left:80.75%;top:51.05%;width:14.4%;height:13.4%;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  color:transparent!important;text-shadow:none!important;pointer-events:none;
+}
+.built-card strong{
+  left:10%;top:37%;width:80%;height:40%;margin:0;
+  background:radial-gradient(ellipse at center,#f8ecd3 0 20%,rgba(248,236,211,.98) 25%,rgba(248,236,211,0) 31%)!important;
+  border:0!important;box-shadow:none!important;border-radius:0!important;
+  color:#27231d!important;font-size:clamp(20px,2.85vw,46px);font-weight:800;
+}
+
+/* منع ظهور أي حدود/طبقات عند الضغط أو اللمس على مناطق التفاعل. */
+.door,.model,.action,.icon-hit{background:transparent!important;border:0!important;box-shadow:none!important}
+.door:focus:not(:focus-visible),.model:focus:not(:focus-visible),.action:focus:not(:focus-visible),.icon-hit:focus:not(:focus-visible){outline:none!important}
+
+/* الرسائل المؤقتة لا تغطي العناصر التي عدّلناها. */
+.toast{max-width:48%;bottom:2.2%}
