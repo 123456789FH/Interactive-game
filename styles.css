@@ -292,3 +292,130 @@ body{padding:0}
 
 /* الرسائل المؤقتة لا تغطي العناصر التي عدّلناها. */
 .toast{max-width:48%;bottom:2.2%}
+
+/* ===== V2.4: خلفية نظيفة بلا أرقام ثابتة في الخانات المتغيرة ===== */
+.app{width:min(100%,1666px);margin:auto}
+.stage{aspect-ratio:1666/944;background-size:100% 100%;}
+
+/* الخلفية الجديدة تحتوي اللوحات نفسها؛ نعرض القيم فقط بلا أي مستطيلات إضافية. */
+.score-box{
+  left:5.65%;top:1.55%;width:6.45%;height:5.95%;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  display:grid;place-items:center;padding:0!important;color:#fff;
+}
+.score-box::before{display:none!important}
+#scoreDisplay{
+  width:100%;text-align:center;font-size:clamp(18px,2.45vw,41px);
+  line-height:1;color:#fff;text-shadow:0 2px 2px rgba(0,0,0,.38);
+}
+
+/* رقم المستوى: يغطي فقط الرقم الثابت داخل الجزء البنفسجي، دون رسم لوحة جديدة. */
+.level-badge{
+  left:28.8%;top:.55%;width:5.65%;height:7.55%;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  color:transparent!important;pointer-events:none;
+}
+.level-badge small{display:none!important}
+.level-badge strong{
+  position:absolute;left:26%;right:26%;bottom:9%;height:42%;
+  display:grid;place-items:center;background:#5a2d90;border-radius:5px;
+  color:#fff!important;text-shadow:0 2px 2px rgba(0,0,0,.26);
+  font-size:clamp(13px,1.7vw,29px)!important;
+}
+
+/* شريط المستويات مرسوم في الخلفية؛ الطبقة الديناميكية تضيف وهج التقدم فقط. */
+.progress{
+  left:34.2%;top:.55%;width:35.6%;height:7.15%;padding:0 5.4%;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+}
+.progress span{
+  color:transparent!important;background:transparent!important;border:0!important;
+  box-shadow:none!important;width:10.6%;aspect-ratio:1;
+}
+.progress span.done{box-shadow:inset 0 0 0 3px rgba(116,207,73,.72)!important}
+.progress span.current{box-shadow:0 0 0 3px rgba(255,255,255,.96),0 0 17px 5px rgba(255,226,95,.88)!important}
+
+/* العدد المطلوب: الخانة البيضاء فارغة في الخلفية. */
+.target-card{
+  left:38.55%;top:25.55%;width:21.35%;height:12.35%;
+  background:transparent!important;border:0!important;box-shadow:none!important;padding:0;
+}
+.target-card span{display:none!important}
+.target-card strong{
+  position:absolute;left:10.5%;top:31%;width:79%;height:57%;
+  display:grid;place-items:center;background:transparent!important;border:0!important;box-shadow:none!important;
+  color:#123e70;font-size:clamp(31px,5.05vw,82px);font-weight:900;line-height:1;
+  letter-spacing:.025em;
+}
+
+/* العدد الذي بناه الطالب: الخانة البيضاء فارغة في الخلفية. */
+.built-card{
+  left:79.92%;top:49.75%;width:15.25%;height:12.2%;
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  color:transparent!important;text-shadow:none!important;pointer-events:none;
+}
+.built-card small{display:none!important}
+.built-card strong{
+  position:absolute;left:9%;top:37%;width:82%;height:45%;margin:0;
+  display:grid;place-items:center;background:transparent!important;border:0!important;box-shadow:none!important;
+  color:#28231c!important;font-size:clamp(20px,2.7vw,46px);font-weight:900;
+}
+
+/* عدادات الأبواب: الخلفية الآن فارغة؛ نضع الرقم فقط. */
+.count-badge{
+  top:41.68%;width:5.1%;height:4.85%;
+  background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;
+  color:#2b261d;font-size:clamp(15px,1.75vw,29px);font-weight:900;
+}
+#countThousands{left:27.65%}
+#countHundreds{left:40.25%}
+#countTens{left:53.05%}
+#countOnes{left:65.72%}
+.count-badge:hover{background:transparent!important}
+
+/* قيم بطاقات النماذج حُذفت من الخلفية أيضًا؛ نعيدها نصيًا فقط. */
+.model::after{
+  position:absolute;left:23%;right:23%;bottom:2.2%;height:17%;
+  display:grid;place-items:center;color:#2f271d;font-family:Tahoma,"Segoe UI","Geeza Pro",sans-serif;
+  font-size:clamp(13px,1.52vw,25px);font-weight:900;line-height:1;pointer-events:none;
+}
+#modelThousands::after{content:"١٠٠٠"}
+#modelHundreds::after{content:"١٠٠"}
+#modelTens::after{content:"١٠"}
+#modelOnes::after{content:"١"}
+
+/* مناطق الأبواب بعد اعتماد الخلفية الجديدة. */
+.door{top:37.1%;height:28.7%;width:11.15%;}
+#doorThousands{left:26.65%}
+#doorHundreds{left:39.20%}
+#doorTens{left:52.05%}
+#doorOnes{left:64.72%}
+
+/* بطاقات القيمة المنزلية. */
+.model{top:70.0%;height:18.7%;}
+#modelThousands{left:22.55%;width:12.8%}
+#modelHundreds{left:35.68%;width:12.85%}
+#modelTens{left:49.98%;width:12.25%}
+#modelOnes{left:63.72%;width:11.6%}
+
+/* أزرار الصورة الأصلية - مناطق نقر فقط. */
+.reset{left:79.15%;top:64.7%;width:17.25%;height:8.8%}
+.check{left:79.05%;top:74.0%;width:17.55%;height:12.0%}
+#soundBtn{left:86.2%;top:1.1%;width:5.0%;height:7.8%}
+#homeBtn{left:92.4%;top:1.0%;width:5.1%;height:7.8%}
+
+/* نجوم بطاقة الإنجاز فوق النجوم المطبوعة، لضمان تمثيل المحاولات فعليًا. */
+.current-stars{left:83.7%;top:31.55%;width:11.0%;height:6.8%}
+.current-stars span{font-size:clamp(18px,2.85vw,46px)}
+
+/* الصندوق الجديد في موضع أعلى قليلًا. */
+.chest-effect{left:70.7%;top:4.4%;width:16.7%;height:24.0%}
+
+/* نقاط اللمس تظل شفافة تمامًا. */
+.door,.model,.action,.icon-hit{background:transparent!important;border:0!important;box-shadow:none!important}
+
+@media(max-width:780px){
+  .target-card strong{top:32%;height:56%}
+  .count-badge{font-size:clamp(14px,2.3vw,24px)}
+  .model::after{font-size:clamp(12px,2vw,22px)}
+}
