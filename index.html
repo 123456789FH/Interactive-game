@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#157bbf">
+  <meta name="description" content="مغامرة كنز القيمة المنزلية - لعبة تفاعلية للصف الثالث الابتدائي">
+  <title>مغامرة كنز القيمة المنزلية</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="app" id="app" aria-label="مغامرة كنز القيمة المنزلية">
+  <section class="stage" id="stage" aria-label="لوحة اللعبة التفاعلية">
+    <div class="screen-shade" id="screenShade" aria-hidden="true"></div>
+
+    <!-- مناطق ديناميكية مضبوطة فوق الصورة -->
+    <div class="score-box ui-panel" aria-label="النقاط"><span class="score-star">★</span><span id="scoreDisplay">٠</span></div>
+    <div class="level-badge ui-panel"><small>المستوى</small><strong id="levelDisplay">١</strong></div>
+    <div class="progress" id="progress" aria-label="التقدم في المستويات"></div>
+
+    <section class="hint-board parchment" id="hintBoard" aria-live="polite">
+      <h2 id="hintTitle">ابنِ العدد</h2>
+      <p id="hintText">اختر نموذج القيمة المنزلية، ثم ضعه في الباب المناسب.</p>
+    </section>
+
+    <section class="target-card parchment" id="targetCard">
+      <span id="targetLabel">العدد المطلوب</span>
+      <strong id="targetDisplay">٤٢٧</strong>
+    </section>
+
+    <div class="built-card" id="builtCard">
+      <small>العدد الذي بنيته</small>
+      <strong id="builtDisplay">٠</strong>
+    </div>
+
+    <div class="count-badge" id="countThousands" data-place="thousands" role="button" tabindex="0" aria-label="عدد نماذج الألوف. اضغط لتقليل نموذج واحد">٠</div>
+    <div class="count-badge" id="countHundreds" data-place="hundreds" role="button" tabindex="0" aria-label="عدد نماذج المئات. اضغط لتقليل نموذج واحد">٠</div>
+    <div class="count-badge" id="countTens" data-place="tens" role="button" tabindex="0" aria-label="عدد نماذج العشرات. اضغط لتقليل نموذج واحد">٠</div>
+    <div class="count-badge" id="countOnes" data-place="ones" role="button" tabindex="0" aria-label="عدد نماذج الآحاد. اضغط لتقليل نموذج واحد">٠</div>
+
+    <button id="doorThousands" class="hit door" type="button" data-place="thousands" aria-label="باب الألوف"></button>
+    <button id="doorHundreds" class="hit door" type="button" data-place="hundreds" aria-label="باب المئات"></button>
+    <button id="doorTens" class="hit door" type="button" data-place="tens" aria-label="باب العشرات"></button>
+    <button id="doorOnes" class="hit door" type="button" data-place="ones" aria-label="باب الآحاد"></button>
+
+    <button id="modelThousands" class="hit model" type="button" data-model="thousands" aria-label="بطاقة نموذج الألف"></button>
+    <button id="modelHundreds" class="hit model" type="button" data-model="hundreds" aria-label="بطاقة نموذج المئة"></button>
+    <button id="modelTens" class="hit model" type="button" data-model="tens" aria-label="بطاقة نموذج العشرة"></button>
+    <button id="modelOnes" class="hit model" type="button" data-model="ones" aria-label="بطاقة نموذج الواحد"></button>
+
+    <!-- طبقة تغطي الصندوق المفتوح وتتحرك لتوحي بفتحه -->
+    <div class="chest-effect" id="chestEffect" aria-hidden="true">
+      <div class="chest-glow"></div>
+      <div class="chest-lid"></div>
+    </div>
+
+    <section class="quiz-panel parchment" id="quizPanel" aria-live="polite" hidden>
+      <div class="quiz-kicker" id="quizKicker">الصيغة القياسية</div>
+      <h2 id="quizQuestion">اختر الإجابة الصحيحة</h2>
+      <div class="quiz-prompt" id="quizPrompt"></div>
+      <div class="options" id="options"></div>
+      <div class="quiz-status" id="quizStatus"></div>
+    </section>
+
+    <button id="resetBtn" class="action reset" type="button">↻ إعادة البناء</button>
+    <button id="checkBtn" class="action check" type="button">✓ تحقق وافتح الكنز</button>
+    <button id="homeBtn" class="icon-hit" type="button" aria-label="العودة إلى شاشة البداية"></button>
+    <button id="soundBtn" class="icon-hit" type="button" aria-label="تشغيل أو إيقاف المؤثرات الصوتية"></button>
+
+    <div class="current-stars" id="currentStars" aria-label="نجوم المستوى">
+      <span>★</span><span>★</span><span>★</span>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+    <!-- شاشة البداية -->
+    <section class="modal-screen start-screen" id="startScreen" aria-labelledby="startTitle">
+      <div class="start-card parchment">
+        <div class="treasure-mark">★</div>
+        <p class="eyebrow">الصف الثالث الابتدائي</p>
+        <h1 id="startTitle">مغامرة كنز<br>القيمة المنزلية</h1>
+        <p class="start-copy">اجمع النجوم، أتقن القيمة المنزلية، وافتح صندوق الكنز عبر <b>٥ مستويات</b>.</p>
+        <label class="name-label" for="studentName">اسم اللاعب <span>(اختياري)</span></label>
+        <input id="studentName" class="name-input" type="text" maxlength="40" autocomplete="name" placeholder="اكتب اسمك هنا">
+        <button id="startBtn" class="big-start" type="button">ابدأ المغامرة</button>
+        <p class="sound-note">مؤثرات صوتية بسيطة فقط — بدون موسيقى.</p>
+        <div class="signature">أ/ فاطمة هزازي</div>
+      </div>
+    </section>
+
+    <!-- شاشة نجاح المستوى -->
+    <section class="modal-screen reward-screen" id="rewardScreen" hidden aria-labelledby="rewardTitle">
+      <div class="reward-card parchment">
+        <div class="reward-icon">🏆</div>
+        <h2 id="rewardTitle">أحسنت!</h2>
+        <p id="rewardMessage">فتحت كنز المستوى.</p>
+        <div class="reward-stars" id="rewardStars">★★★</div>
+        <p class="reward-score">النقاط: <strong id="rewardScore">٠</strong></p>
+        <button id="nextBtn" class="big-start" type="button">المستوى التالي</button>
+      </div>
+    </section>
+
+    <!-- الشهادة النهائية -->
+    <section class="modal-screen certificate-screen" id="certificateScreen" hidden aria-labelledby="certificateTitle">
+      <div class="certificate" id="certificate">
+        <div class="cert-stars">★ ★ ★</div>
+        <p class="cert-top">شهادة إنجاز</p>
+        <h2 id="certificateTitle">بطل القيمة المنزلية</h2>
+        <p>تُمنح هذه الشهادة إلى</p>
+        <div class="student-line" id="certificateName">بطل الرياضيات</div>
+        <p>لإتمام جميع مستويات <b>مغامرة كنز القيمة المنزلية</b> بنجاح</p>
+        <div class="cert-stats">
+          <span>النقاط <strong id="certificateScore">٠</strong></span>
+          <span>النجوم <strong id="certificateStars">٠</strong></span>
+        </div>
+        <p class="cert-date" id="certificateDate"></p>
+        <div class="cert-sign">إشراف: أ/ فاطمة هزازي</div>
+        <div class="cert-footer">ملتقى التعليم التفاعلي • ملتقى معلمي ومعلمات الرياضيات</div>
+        <div class="certificate-actions no-print">
+          <button id="printBtn" type="button">طباعة الشهادة</button>
+          <button id="replayBtn" type="button">مغامرة جديدة</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <p class="help"><b>طريقة اللعب:</b> في مستوى البناء اسحب بطاقة النموذج إلى الباب الصحيح، أو اضغط البطاقة ثم الباب. اضغط عدد النماذج أعلى الباب لتقليل نموذج واحد عند الحاجة.</p>
+</main>
+
+<div id="dragGhost" class="drag-ghost" aria-hidden="true"><span></span></div>
+<script src="game.js"></script>
+</body>
+</html>
