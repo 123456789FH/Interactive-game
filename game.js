@@ -17,7 +17,7 @@
 
   const els={
     stage:document.querySelector('#stage'), score:document.querySelector('#scoreDisplay'), level:document.querySelector('#levelDisplay'), progress:document.querySelector('#progress'),
-    hintTitle:document.querySelector('#hintTitle'), hintText:document.querySelector('#hintText'), targetCard:document.querySelector('#targetCard'), targetLabel:document.querySelector('#targetLabel'), target:document.querySelector('#targetDisplay'), built:document.querySelector('#builtDisplay'), builtCard:document.querySelector('#builtCard'),
+    targetCard:document.querySelector('#targetCard'), targetLabel:document.querySelector('#targetLabel'), target:document.querySelector('#targetDisplay'), built:document.querySelector('#builtDisplay'), builtCard:document.querySelector('#builtCard'),
     quizPanel:document.querySelector('#quizPanel'), quizKicker:document.querySelector('#quizKicker'), quizQuestion:document.querySelector('#quizQuestion'), quizPrompt:document.querySelector('#quizPrompt'), options:document.querySelector('#options'), quizStatus:document.querySelector('#quizStatus'),
     reset:document.querySelector('#resetBtn'), check:document.querySelector('#checkBtn'), home:document.querySelector('#homeBtn'), sound:document.querySelector('#soundBtn'), currentStars:document.querySelector('#currentStars'), chest:document.querySelector('#chestEffect'), toast:document.querySelector('#toast'), confetti:document.querySelector('#confetti'), ghost:document.querySelector('#dragGhost'),
     startScreen:document.querySelector('#startScreen'), studentName:document.querySelector('#studentName'), start:document.querySelector('#startBtn'), rewardScreen:document.querySelector('#rewardScreen'), rewardTitle:document.querySelector('#rewardTitle'), rewardMessage:document.querySelector('#rewardMessage'), rewardStars:document.querySelector('#rewardStars'), rewardScore:document.querySelector('#rewardScore'), next:document.querySelector('#nextBtn'),
@@ -154,7 +154,6 @@
     document.body.classList.remove('quiz-mode');els.quizPanel.hidden=true;els.targetCard.hidden=false;els.builtCard.hidden=false;els.reset.hidden=false;els.check.hidden=false;
     state.target=randomNumber(120,9876);state.solved=false;state.attempts=0;setRoundStars(3);placeOrder.forEach(k=>state.counts[k]=0);state.selected=null;
     els.targetLabel.textContent='العدد المطلوب';els.target.textContent=ar(state.target);
-    els.hintTitle.textContent='ابنِ العدد';els.hintText.textContent='اختر نموذج القيمة المنزلية، ثم ضعه في الباب المناسب. اضغط العدد أعلى الباب لتقليل نموذج واحد.';
     els.check.textContent='✓ تحقق وافتح الكنز';renderCore();toast('كوّن العدد '+ar(state.target)+' باستخدام النماذج.');
   }
 
@@ -182,7 +181,6 @@
     quiz.options.forEach(text=>{
       const b=document.createElement('button');b.type='button';b.className='option';b.textContent=text;b.dataset.value=text;b.addEventListener('click',()=>answerQuiz(b));els.options.appendChild(b);
     });
-    els.hintTitle.textContent=quiz.kicker;els.hintText.textContent=state.level===5?'التحدي النهائي '+ar(state.finalStep+1)+' من ٣. اختر الإجابة الصحيحة لتحصل على نجمة الكنز.':'اقرأ السؤال جيدًا، ثم اختر الإجابة الصحيحة من البطاقات.';
     renderCore();
   }
 
